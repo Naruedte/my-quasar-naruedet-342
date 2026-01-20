@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend/logs:/app/logs
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    environment:
+      - VITE_API_URL=http://backend:3000
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
